@@ -74,7 +74,7 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="@color/purple"
                 android:textSize="14sp" />
@@ -96,7 +96,7 @@
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:inputType="number"
                 android:textColor="@color/black"
                 android:textColorHint="@color/purple"
                 android:textSize="14sp" />

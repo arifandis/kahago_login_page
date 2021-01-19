@@ -2,18 +2,29 @@ package com.cahstudio.kahagologinpage;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RegisterFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements View.OnClickListener {
+    private TextInputEditText etFullName, etEmail, etPhone;
+    private Button btnRegister;
+    private CheckBox cbTerm;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +71,60 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        etFullName = view.findViewById(R.id.etFullname);
+        etEmail = view.findViewById(R.id.etEmail);
+        etPhone = view.findViewById(R.id.etPhone);
+        btnRegister = view.findViewById(R.id.btnRegister);
+        cbTerm = view.findViewById(R.id.cbTerm);
+
+        btnRegister.setOnClickListener(this);
+    }
+
+    void checkForm(){
+        String fullname = etFullName.getText().toString();
+        String email = etEmail.getText().toString();
+        String phone = etPhone.getText().toString();
+
+        if (fullname.isEmpty()){
+            etFullName.setError("Masukkan nama lengkap Anda");
+            return;
+        }
+
+        if (email.isEmpty()){
+            etEmail.setError("Masukkan email Anda");
+            return;
+        }
+
+        if (phone.isEmpty()){
+            etPhone.setError("Masukkan nomor telepon Anda");
+            return;
+        }
+
+        if (!cbTerm.isChecked()){
+            Toast.makeText(getContext(), "Anda belum menyetujui Term & Condition dari KAHAGO",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        register();
+    }
+
+    void register(){
+        Toast.makeText(getContext(), "Pendaftaran berhasil", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnRegister:
+                checkForm();
+                break;
+        }
     }
 }

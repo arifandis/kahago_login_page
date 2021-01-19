@@ -2,23 +2,32 @@ package com.cahstudio.kahagologinpage;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private TextInputEditText etEmail, etPassword;
+    private Button btnLogin;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -60,5 +69,46 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        etEmail = view.findViewById(R.id.etEmail);
+        etPassword = view.findViewById(R.id.etPassword);
+        btnLogin = view.findViewById(R.id.btnLogin);
+
+        btnLogin.setOnClickListener(this);
+    }
+
+    void checkForm(){
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (email.isEmpty()){
+            etEmail.setError("Masukkan email Anda");
+            return;
+        }
+
+        if (password.isEmpty()){
+            etPassword.setError("Masukkan password Anda");
+            return;
+        }
+
+        login();
+    }
+
+    void login(){
+        Toast.makeText(getContext(), "Login sukses", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnLogin:
+                checkForm();
+                break;
+        }
     }
 }
